@@ -1,0 +1,1 @@
+let position: [number, number] = [123.4, 234.5];
