@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTMLCanvasElement</title>
+  <style>
+    canvas{
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="100", height="100"></canvas>
+  <div>
+    <button id="toBlobImg">生成图片</button>
+  </div>
+  <div>
+    <button id="toBlobDownload">下载图片</button>
+  </div>
+  <div>
+    <button id="toDataURL">转base64</button>
+  </div>
+  <script>
+    /**
+     * ###start：这段代码添加鼠标点击划过画布可以画画的功能
+     */
+      const canvas = document.querySelector("canvas");
+      const c = canvas.getContext("2d");
+      c.fillStyle = "hotpink";
+      let isDrawing = false;
+
+      function draw(x, y) {
+        if (isDrawing) {
+          c.beginPath();
+          c.arc(x, y, 10, 0, Math.PI * 2);
+          c.closePath();
+          c.fill();
+        }
+      }
+
+      canvas.addEventListener("mousemove", (event) =>
+        draw(event.offsetX, event.offsetY)
+      );
+      canvas.addEventListener("mousedown", () => (isDrawing = true));
+      canvas.addEventListener("mouseup", () => (isDrawing = false));
+    /**
+     * ###end
+     */
+    /*
+      测试HTMLCanvasElement的toBlob函数的描述 （什么是blob？  见@/js/blob.js）
+        1. toBlob接口将对canvas里的图像资源生成一个blob URL供本页面使用
+        2. toBlob函数是异步的
+        3. 第一个参数是回调函数
+        4. 第二个参数可选，指定生成图片的格式，比如png，jpeg，默认是image/png
+        5. 第三个参数可选，指定生成图片的质量，仅在图片是jpeg起效，取值范围是0~1，越高，质量越好
+    */
+    const btn = document.getElementById("toBlobImg");
+    // 用生成的blob URL作为img元素的src属性
+    btn.onclick = ()=>{
+      canvas.toBlob((blob)=>{
+        const img = document.createElement("img");
+        const url = URL.createObjectURL(blob);    // createObjectURL方法将一个blob对象的资源生成一个临时的，只能在本页面生命周期内能访问的页面内URL，以blob:开头
+        console.log(url);
+        img.src = url;
+        img.onload = () => {
+          URL.revokeObjectURL(url);     // 回收销毁临时创建的blob对象的URL，节约内存
+        }
+        document.body.appendChild(img);
+      });
+    }
+    const btn2 = document.getElementById('toBlobDownload');
+    // 用生成的blob URL作为下载地址
+    btn2.onclick = ()=>{
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);    // createObjectURL方法将一个blob对象的资源生成一个临时的，只能在本页面生命周期内能访问的页面内URL，以blob:开头
+        console.log(url);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = '我的画作';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+      return false;
+    }
+    /*
+      测试HTMLCanvasElement的toDataURL方法
+        1. 将该canvas的内容生成base64的URL，返回一个字符串
+        2. 第一个参数是生成图片的文件格式，比如image/png
+        3. 第二个参数是生成图片的质量，只在第一个参数是img/jpeg和img/webp时有效，取值在0~1
+    */
+    // 将canvas的内容转成base64的格式放到页面上
+    const btn3 = document.getElementById('toDataURL');
+    btn3.onclick = ()=>{
+      const base64 = canvas.toDataURL('image/png');
+      const p = document.createElement('p');
+      p.style.wordBreak = 'break-all';      // 开启强制换行，一连串很长的英文字母也能换行了，而不是在一行显示
+      p.innerHTML = base64;
+      document.body.appendChild(p);
+    }
+
+  </script>
+</body>
+</html>

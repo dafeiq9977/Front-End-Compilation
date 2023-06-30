@@ -1,0 +1,5 @@
+1. http-proxy-middleware：用于和express结合使用，给客户端发来的请求做代理
+2. cheerio：用于在node服务端对html字符串做分析处理
+3. video.js：开源的网页视频播放器，支持多种流媒体格式
+4. mux.js：转换流媒体格式，转成能被MediaSource识别播放的格式
+5. htmlparser2：

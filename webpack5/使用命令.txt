@@ -1,0 +1,5 @@
+安装：npm i webpack webpack-cli -D
+
+运行：
+  没有配置文件：
+    npx webpack [这里写入口文件的路径，即从哪个文件开始打包 ./src/main.js] [这里指定打包的模式，这里写的是开发模式 --mode=development]

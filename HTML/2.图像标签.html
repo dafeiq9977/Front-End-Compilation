@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图像标签</title>
+  <!-- 
+        img节点的状态：
+          loading：浏览器发送https请求获取图片资源
+          fail：执行img挂载的onerror函数
+          after fail：img变成默认的加载失败的小图标和alt的内容
+   -->
+</head>
+<body>
+  <script>
+    // 定义img标签的图片加载失败的回调函数
+    function error(e){
+      console.log('img load error triggered')
+      const img = event.srcElement;   // 获取img节点
+      // 设置img节点新的路径，浏览器检测到img的src属性被设置了，将img的状态重新设置为loading
+      // 设置新的src属性后，img的状态设置成获取图片中，因此不会出现默认图片
+      img.src = 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_handsome1.jpg'
+      img.onerror = null;
+    }
+  </script>
+  <!-- 
+        src：img要加载的图片路径，可以是相对路径（相对于当前窗口的地址），或者是完整的url地址
+        alt：img状态变成after fail后展示文字内容
+        title：鼠标放到图片上展示的文字信息
+        width：设置图像的宽度，如果不设置高度，图像会等比例伸缩
+        height：设置图像的高度，如果不设置宽度，图像也会等比例伸缩      一般开发中只设置宽度高度的一个
+        border：设定图像的边框，一般适用CSS的border属性
+   -->
+  <img src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_handsome1.jpg" alt="图片未加载" onerror="error()">
+   <img src="/qpr/pic.jpg" alt="一个人">
+</body>
+</html>

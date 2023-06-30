@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>超链接标签</title>
+  <style>
+    html {
+      font-family: sans-serif;
+    }
+
+    canvas {
+      background: #fff;
+      border: 1px dashed;
+    }
+
+    a {
+      display: inline-block;
+      background: #69c;
+      color: #fff;
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="idname">这里是id是idname的标签</div>
+  <script>
+    const jumpToAnotherPage = () => {
+
+      const a = event.srcElement;
+      const randomURL = 'www.baidu.com';
+      a.href = `https://${randomURL}`;
+    }
+  </script>
+  <!-- 
+    href: 指定链接目标的url地址
+      URL的类型:
+        普通的网页链接:https://www.qq.com   /index.html
+        javascript伪URL: javascript:void(0)
+        data URL: data:[<mediatype>][;base64],<data>    data URL可以直接用浏览器打开
+            e.g data:text/plain;base64,SGVsbG8sIFdvcmxkIQ==
+                data:text/html,%3Ch1%3EHello%2C%20World!%3C%2Fh1%3E
+        
+    target: 指定链接的打开方式  _self默认值   _blank新窗口打开
+   -->
+  <!-- 第一类链接：去往外部链接（url必须写全协议 ） -->
+  <div><a href="https://www.baidu.com" target="_blank">腾讯</a></div>
+
+  <!-- 第二类链接：去到该网址的另外一个页面 -->
+  <div><a href="./内部网页.html">内部网页</a></div>
+
+  <!-- 空链接 # -->
+  <div><a href="#">公司地址</a></div>
+
+  <!-- 空连接 javascript:void(0) -->
+  <!-- javascript:开头的URL代表一个JavaScript伪URL,冒号后面的是要执行的JS代码 -->
+  <div><a href="javascript:void(alert('hello'))">javascript伪URL</a></div>
+
+  <!-- a标签的onclick事件(先执行onclick事件回调，后执行页面跳转的动作) -->
+  <div><a href="#" onclick="jumpToAnotherPage()">点击去往一个随机的地址</a></div>
+
+  <!-- a标签作为下载链接，href的属性是压缩文件或者是浏览器不支持展示的文件才能下载 -->
+  <div><a href="img.zip">下载img.zip</a></div>
+  <div><a href="#" id="bloburlcanvas">使用blob url下载我的绘画</a></div>
+
+  <!-- data URL 用canvas.toDataURL将内容转化成base64的格式 -->
+  <div><a href="" download="my_painting.png" id="dataurlcanvas">使用data url下载我的绘画</a></div>
+
+  <div style="height: 500px">-------------分割线---------------</div>
+
+  <!-- 锚点链接：点击后快速去到页面中的其他位置 -->
+  <div><a href="#idname">跳到id是idname的元素</a></div>
+  <canvas width="300" height="300"></canvas>
+  <script>
+    const canvas = document.querySelector("canvas");
+    const c = canvas.getContext("2d");
+    c.fillStyle = "hotpink";
+    let isDrawing = false;
+
+    function draw(x, y) {
+      if (isDrawing) {
+        c.beginPath();
+        c.arc(x, y, 10, 0, Math.PI * 2);
+        c.closePath();
+        c.fill();
+      }
+    }
+
+    canvas.addEventListener("mousemove", (event) =>
+      draw(event.offsetX, event.offsetY)
+    );
+    canvas.addEventListener("mousedown", () => (isDrawing = true));
+    canvas.addEventListener("mouseup", () => (isDrawing = false));
+
+    document
+      .getElementById("dataurlcanvas")
+      .addEventListener(
+        "click",
+        (event) => { const dataURL = canvas.toDataURL(); console.log(dataURL); event.target.href = dataURL }
+      );
+    document
+      .getElementById("bloburlcanvas")
+      .addEventListener(
+        "click",
+        (event) => {
+          const blobURL =
+            canvas.toBlob(
+              (blob) => {
+                const blobURL = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = blobURL;
+                a.target = '_blank';
+                a.download = '我的绘画';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+              }
+            );
+        }
+      );
+
+
+  </script>
+</body>
+
+</html>
