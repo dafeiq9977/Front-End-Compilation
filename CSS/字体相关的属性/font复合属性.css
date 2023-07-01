@@ -1,0 +1,4 @@
+/* font： font-style font-weight font-size/line-height font-family */
+p {
+  font: italic 400 20px/32px 'Microsoft Yahei';
+}

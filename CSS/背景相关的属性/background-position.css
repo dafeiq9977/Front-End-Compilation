@@ -1,0 +1,16 @@
+/* background-position：控制背景图片的位置 */
+/* 方位名词：如果指定了其中一个，那另一个默认center */
+div {
+  background-position: center top;
+}
+
+/* background-position：精确单位 */
+div {
+  /* x y */
+  background-position: 50px 50px;
+}
+
+/* 混合单位 */
+div {
+  background-position: 20px center;
+}

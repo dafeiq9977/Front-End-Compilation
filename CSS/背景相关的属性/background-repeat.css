@@ -1,0 +1,10 @@
+/* background-repeat：指定元素背景图片是否平铺 */
+/* repeat（默认） | no-repeat | repeat-x | repeat-y */
+
+div {
+  background-repeat: no-repeat;
+  /* 不平铺 */
+
+  background-color: blue;
+  /* 既可以加背景图片，也可以加背景颜色 */
+}

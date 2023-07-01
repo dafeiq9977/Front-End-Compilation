@@ -1,0 +1,6 @@
+/* background复合属性 */
+
+/* 复合属性书写书写顺序没有强制性要求 */
+div {
+  background: black url(images/bg.jpg) no-repeat fixed top
+}

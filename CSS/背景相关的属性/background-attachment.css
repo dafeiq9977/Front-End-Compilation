@@ -1,0 +1,5 @@
+/* background-attachment：背景图像是否随内容滚动而滚动 */
+/* scroll | fixed */
+div {
+  background-attachment: fixed;
+}

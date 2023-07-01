@@ -1,0 +1,6 @@
+/* font-weight：设置文字粗细 */
+/* normal | bold | lighter | number */
+/* 建议用数字指定字体粗细，400等于normal，700等于bold */
+p {
+  font-weight: bold;
+}

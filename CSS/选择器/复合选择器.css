@@ -1,0 +1,47 @@
+/* 后代选择器 */
+/* 选择器1 选择器2 .... */
+.animal .person .city #name {
+  /* 选择animal类元素所有后代元素中的person类元素的所有后代元素中的city类元素的所有后代元素中的id是name的元素 */
+  color: purple;
+}
+
+/* 子选择器：只选则元素亲儿子的元素 */
+.animal>.person {
+  color: aqua;
+}
+
+/* 并集选择器：选择多组标签，设置相同的样式 */
+/* 多组标签用逗号相连 */
+div,
+p {
+  color: brown;
+}
+
+/* 伪类选择器 */
+/* :link：所有未被访问的链接 */
+a:link {
+  color: #333;
+  text-decoration: none;
+}
+
+/* :visited：所有已被访问的链接 */
+a:visited {
+  color: orange;
+}
+
+/* :hover：鼠标悬浮在链接上 */
+a:hover {
+  color: skyblue;
+}
+
+/* :active：鼠标按下链接还未弹起 */
+a:active {
+  color: green;
+}
+
+/* 链接伪类声明顺序要保持一定：link -> visited -> hover -> active */
+
+/* :focus伪类：获得焦点的元素 */
+input:focus {
+  background-color: #fff;
+}

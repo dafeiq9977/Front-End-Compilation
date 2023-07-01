@@ -1,0 +1,5 @@
+/* text-decoration：给文字加线 */
+/* none(默认) | underline | overline | line-through */
+p {
+  text-decoration: line-through;
+}

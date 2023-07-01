@@ -1,0 +1,13 @@
+/* 
+  行内元素：不独占一行，宽高无效，左右padding，margin有效，上下的无效，宽高岁内部内容变化而变化
+  块元素：独占一行，宽高有效，padding，margin有效，撑满父元素
+  行内块元素：不独占一行，宽高有效，padding，margin有效，默认宽高随内部内容变化
+*/
+
+/* display：修改元素展示规则 */
+/* display：block | inline | inline-block */
+span {
+  width: 100px;
+  height: 30px;
+  display: block;
+}

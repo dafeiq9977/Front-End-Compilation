@@ -1,0 +1,6 @@
+/* text-align：文字对齐 */
+/* center | left(默认) | right */
+p {
+  text-align: center;
+  /* 盒子里的文字水平居中 */
+}
